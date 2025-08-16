@@ -6,7 +6,162 @@
     <title>home page</title>
   </head>
   <body>
-    <h1>Shopsy Home-page</h1>
-    <h1>hello people</h1>
+    {% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'store/homestyle.css' %}" >
+    <script src="{%static 'store/homescript.js' %}"></script>
+</head>
+<body>
+    <!-- Top Navbar -->
+    <header>
+        <div class="logo"><img src="{% static 'store/logo.jpg' %}" alt="Shopsy_logo"></div>
+        <input type="text" placeholder="Search">
+    </header>
+    <div class="layout">
+        <!-- main content area -->
+        <main class="main-content">
+            <div class="hero-banner">
+                <div class="slider">
+                    <div class="hero hero1">
+                        <h1>Welcome to Shopsy</h1>
+                        <p>Discover the latest trends and shop your favourites.</p>
+                        <button>Shop Now</button>
+                    </div>
+                    <div class="hero hero2">
+                        <h1>Big Summer Sale</h1>
+                        <p>Up to 50% Off on all fashion items</p>
+                        <button>Shop Now</button>
+                    </div>
+                    <div class="hero hero3">
+                        <h1>New Arrivals</h1>
+                        <p>Trendy fashion just for you</p>
+                        <button>Discover</button>
+                    </div>
+                    <div class="hero hero4">
+                        <h1>Latest Collections</h1>
+                        <p>We are here to match your asthetics</p>
+                        <button>Explore more</button>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+    <!-- Products Section -->
+    <section class="category">
+        <h1>Shop by Category</h1>
+        <div class="category-grid">
+            <div class="category-cart">
+                <img src="{% static 'store/women.jpg'%}">
+                <h3>Women</h3>
+            </div>
+            <div class="category-cart">
+                <img src="{% static 'store/men_cart.jpg'%}">
+                <h3>Men</h3>
+            </div>
+            <div class="category-cart">
+                <img src="{% static 'store/kids_cart.jpg'%}">
+                <h3>Kids</h3>
+            </div>
+            <div class="category-cart">
+                <img src="{% static 'store/footwear_cart.jpg'%}">
+                <h3>Foot-wears</h3>
+            </div>
+            <div class="category-cart">
+                <img src="{% static 'store/aceessoris cart.jpg'%}">
+                <h3>Accessories</h3>
+            </div>
+            <div class="category-cart">
+                <img src="{% static 'store/makeup_cart.jpg'%}">
+                <h3>Make-up</h3>
+            </div>
+            <div class="category-cart">
+                <img src="{% static 'store/'%}">
+                <h3>Skincare</h3>
+            </div>
+
+        </div>
+    </section>
+    <!-- Right Side Navigation  -->
+    <nav class="right-nav">
+            <a href="#" title="Home">
+                <svg xmlns="http://www.w3.org/2000/svg" 
+                    viewBox="0 0 24 24" 
+                    fill="none" 
+                    stroke="currentColor" 
+                    stroke-width="1.5" 
+                    class="icon">
+                <path stroke-linecap="round" stroke-linejoin="round" 
+                        d="M3 9.75l9-7.5 9 7.5V21a1.5 1.5 0 01-1.5 1.5H4.5A1.5 1.5 0 013 21V9.75z" />
+                </svg>
+            </a>
+            <!-- Notifications (bell) -->
+            <a href="#" title="Notifications">
+                <svg xmlns="http://www.w3.org/2000/svg" 
+                    viewBox="0 0 24 24" 
+                    fill="none" 
+                    stroke="currentColor" 
+                    stroke-width="1.5" 
+                    class="icon">
+                <path stroke-linecap="round" stroke-linejoin="round" 
+                        d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 
+                        6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C8.67 6.165 
+                        8 7.388 8 8.75V14.158c0 .538-.214 1.055-.595 
+                        1.437L6 17h5m4 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                </svg>
+
+            </a>
+            <a href="#" title="User">
+                <svg xmlns="http://www.w3.org/2000/svg" 
+                    viewBox="0 0 24 24" 
+                    fill="none" 
+                    stroke="currentColor" 
+                    stroke-width="1.5" 
+                    class="icon">
+                <circle cx="12" cy="7" r="4" />
+                <path d="M5.5 21a7.5 7.5 0 0113 0" />
+                </svg>
+
+            </a>
+
+        <!-- cart -->
+            <a href="#" title="cart">
+               
+                <svg class="icon" xmlns="http://www.w3.org/2000/svg" 
+                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+                    aria-hidden="true">
+                <circle cx="9" cy="20" r="1.6"/>
+                <circle cx="17" cy="20" r="1.6"/>
+                <path d="M3 4h2l2.1 9.5a2 2 0 0 0 2 1.5h7.3a2 2 0 0 0 2-1.5L21 8H7.2"/>
+                </svg>
+
+            </a>
+        <!-- Settings (gear) -->
+            <a href="#" title="Settings">
+                <svg xmlns="http://www.w3.org/2000/svg" 
+                    viewBox="0 0 24 24" 
+                    fill="none" 
+                    stroke="currentColor" 
+                    stroke-width="1.5" 
+                    class="icon">
+                <circle cx="12" cy="12" r="3" />
+                <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 01-2.83 2.83l-.06-.06A1.65 1.65 0 0015 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 008.6 15a1.65 1.65 0 00-1.82-.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.6a1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0015 8.6c.23 0 .46.05.67.14a1.65 1.65 0 001.73-.44l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 15z" />
+                </svg>
+
+            </a>
+    </nav>
+    
+        
+
+    
+</body>
+</html>
+
   </body>
 </html>
