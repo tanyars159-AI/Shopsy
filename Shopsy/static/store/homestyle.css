@@ -408,3 +408,56 @@ header>input::placeholder{
     border-top: 1px solid #444;
     padding-top: 15px;
 }
+
+.about-container {
+    padding: 50px;
+    font-family: Arial, sans-serif;
+    color: #333;
+}
+
+.about-hero {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.about-hero h1 {
+    font-size: 2.5rem;
+    color: #222;
+}
+
+.about-content h2 {
+    margin-top: 30px;
+    color: #444;
+}
+
+.about-content p {
+    line-height: 1.6;
+    margin: 10px 0;
+}
+
+.team {
+    display: flex;
+    gap: 30px;
+    margin: 20px 0;
+}
+
+.team-member {
+    text-align: center;
+    width: 200px;
+}
+
+.team-member img {
+    width: 100%;
+    border-radius: 50%;
+    box-shadow: 0px 2px 6px rgba(0,0,0,0.2);
+}
+
+.contact-info {
+    list-style: none;
+    padding: 0;
+}
+
+.contact-info li {
+    margin: 5px 0;
+}
+

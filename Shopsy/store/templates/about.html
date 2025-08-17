@@ -1,6 +1,47 @@
-{% extends 'base.html'%}
-{% load static %}
-{% block content %}
+{% extends 'base.html'%} {% load static %} {% block content %}
 
-<h1>This is about us page</h1>
+<section class="about-container">
+  <div class="about-hero">
+    <h1>About Us</h1>
+    <p>Learn more about our journey, our values, and what makes us unique.</p>
+  </div>
+
+  <div class="about-content">
+    <h2>Who We Are</h2>
+    <p>
+      Welcome to <strong>{{ site_name }}</strong>, your trusted destination for
+      quality products. We started with a mission to make online shopping
+      simple, secure, and enjoyable.
+    </p>
+
+    <h2>Our Mission</h2>
+    <p>
+      We aim to provide top-notch products at affordable prices while ensuring
+      the best customer experience possible.
+    </p>
+
+    <h2>Meet Our Team</h2>
+    <div class="team">
+      <div class="team-member">
+        <img src="{% static 'images/team1.jpg' %}" alt="Founder" />
+        <h3>John Doe</h3>
+        <p>Founder & CEO</p>
+      </div>
+      <div class="team-member">
+        <img src="{% static 'images/team2.jpg' %}" alt="Designer" />
+        <h3>Jane Smith</h3>
+        <p>Creative Director</p>
+      </div>
+    </div>
+
+    <h2>Contact Us</h2>
+    <ul class="contact-info">
+      <li>
+        Email: <a href="mailto:support@example.com">support@example.com</a>
+      </li>
+      <li>Phone: +1 234 567 890</li>
+      <li>Address: 123 Ecom Street, Tech City</li>
+    </ul>
+  </div>
+</section>
 {% endblock %}
