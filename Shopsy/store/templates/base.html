@@ -1,0 +1,30 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>home-page</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'store/homestyle.css' %}" >
+    <script src="{%static 'store/homescript.js' %}"></script>
+</head>
+<body>
+    <!-- Top Navbar -->
+    <header>
+        <div class="logo"><img src="{% static 'store/logo.jpg' %}" alt="Shopsy_logo"></div>
+        <input type="text" placeholder="Search">
+    </header>
+    {% block content %}
+    {% endblock %}
+    </section>
+    <!-- RightSideNavbar -->
+    {% include 'nav.html' %}
+    <!-- footer section -->
+    {% include 'footer.html'%}
+    
+</body>
+</html>
+
+  </body>
+</html>
