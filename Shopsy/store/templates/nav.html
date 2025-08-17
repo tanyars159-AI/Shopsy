@@ -88,6 +88,11 @@
                         2 .9 2 2v2h6v-3.5c0-2.33-4.67-3.5-7-3.5z"/>
                 </svg>
             </a>
+             {% if user.is_authenticated %}
+            <a href="{% url 'logout' %}">Log-out</a>
+            {% else %}
+            <a href="{% url 'login' %}">Log-in</a>
+            {% endif %}
     </nav>
     
 </body>

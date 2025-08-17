@@ -1,6 +1,11 @@
 {% extends 'base.html'%}
 {% load static %}
 {% block content %}
+    <!-- Top Navbar -->
+    <header>
+        <div class="logo"><img src="{% static 'store/logo.jpg' %}" alt="Shopsy_logo"></div>
+        <input type="text" placeholder="Search">
+    </header>
     <div class="layout">
         <!-- main content area -->
         <main class="main-content">
@@ -78,9 +83,9 @@
                 <div class="product-details">
                     <h5>{{product.name}}</h5>
                     <p>{{product.price}}Rs.</p>
-                    <p>{{product.description}}</p>
-                    <button>Buy-Now</button>
+                    <!-- <p>{{product.description}}</p> -->
                     <button>Add to card</button>
+                    <a href="{% url 'product' product.id %}">View Product>></a>
                 </div>
             </div>
             {% endfor%}

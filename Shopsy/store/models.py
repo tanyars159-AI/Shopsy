@@ -18,6 +18,14 @@ class Customer(models.Model):
     password=models.CharField(max_length=100)
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
+"User"
+class projectUserModel(models.Model):
+    username=models.CharField(max_length=30)
+    email=models.EmailField(max_length=50)
+    password=models.CharField(max_length=128)
+    
+    def __str__(self):
+        return self.username+' '+self.email
 #All of our products
 class Products(models.Model):
     name=models.CharField(max_length=100)

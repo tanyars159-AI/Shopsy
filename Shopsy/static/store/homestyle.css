@@ -212,6 +212,7 @@ header>input::placeholder{
     box-sizing: border-box;
 }
 .product-cart {
+    align-items: center;
     max-width: 260px;
     height: 400px;
     background:var(--sec);
@@ -241,6 +242,8 @@ header>input::placeholder{
 .product-details {
   padding: 15px;
   text-align: left;
+  display: flex;
+  flex-direction: column;
 }
 
 .product-details h5 {
@@ -280,7 +283,21 @@ header>input::placeholder{
 .product-details button:hover {
   background: #d62828;
 }
-
+.product-details a{
+    margin-top: 10px;
+    font-size: medium;
+    text-decoration: none;
+    color: var(--tr);
+}
+.product-details a:active{
+    color: var(--tr);
+}
+.product-details a:hover{
+    color: black;
+}
+.product-details a:visited{
+    color: var(--tr);
+}
 .right-nav{
     width: 100px;
     height: 100%;
@@ -385,4 +402,3 @@ header>input::placeholder{
     border-top: 1px solid #444;
     padding-top: 15px;
 }
-

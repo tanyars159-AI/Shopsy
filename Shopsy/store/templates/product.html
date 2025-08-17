@@ -1,0 +1,30 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'store/productstyle.css' %}" >
+</head>
+<body>
+    <div class="product">
+        <div class="product-cart" >
+        <div><img class="product-image" src="{{ product.image.url }}"></div>
+        <div class="product-details">
+            <h5 class="card-title">{{product.name}}</h5>
+            <p class="card-text">{{product.price}}</p>
+            <p class="card=text">{{product.category}}</p>
+            <p class="card-text">{{product.description}}</p>
+            <button>Buy-Now</button>
+            <p><a href="{% url 'home' %}">Home</a></p>
+
+        </div>
+    </div>
+    <!-- RightSideNavbar -->
+    {% include 'nav.html' %}
+    <!-- footer section -->
+    {% include 'footer.html'%}
+</div>
+</body>
+</html>
