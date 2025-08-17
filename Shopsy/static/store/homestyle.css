@@ -533,4 +533,25 @@ header>input::placeholder{
     background: #c0392b;
 }
 
+.notifications-container {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+.notifications-list {
+    list-style: none;
+    padding: 0;
+}
+
+.notifications-list li {
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+.notifications-list li.unread {
+    background: #f5faff;
+    font-weight: bold;
+}
+
 

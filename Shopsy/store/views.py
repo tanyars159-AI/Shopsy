@@ -38,6 +38,10 @@ def login_user(request):
                 if check_password(password, user.password):
                     request.session['user_id'] = user.id
                     print("Session set for:", user.username)
+                    Notification.objects.create(
+                        user=user,
+                        message="You have successfully logged into your account."
+                    )
                     return redirect('/profile')
                 else:
                     msg = "Invalid email or password"
@@ -70,6 +74,10 @@ def signup(request):
             user=sup.save(commit=False)
             user.password=make_password(user.password)
             user.save()
+            Notification.objects.create(
+                user=user,
+                message="Welcome to our store! 🎉"
+            )
             return redirect('/login')
         else:
             return render(request,'SignUp.html',{'sup':sup})
@@ -77,8 +85,18 @@ def signup(request):
 
 def logout_user(request):
     if 'user_id' in request.session:
+        try:
+            user = projectUserModel.objects.get(id=user_id)
+            Notification.objects.create(
+                user=user,
+                message="You have logged out. See you again soon!"
+            )
+
+        except projectUserModel.DoesNotExist:
+            pass
         del request.session['user_id']
     messages.success(request, "You have been logged out..thanks for visiting")
+
     return redirect('home')
 
 from django.contrib.auth.hashers import check_password, make_password
@@ -97,6 +115,10 @@ def change_password(request):
             if check_password(old_password, user.password):
                 user.password = make_password(new_password)
                 user.save()
+                Notification.objects.create(
+                user=user,
+                message="Welcome Back! 🎉."
+                )
                 messages.success(request, "Password updated successfully!")
                 return redirect('/profile')
             else:
@@ -104,6 +126,19 @@ def change_password(request):
                 return redirect('/settings')
         except projectUserModel.DoesNotExist:
             return redirect('/login')
+        
+def notifications(request):
+    user_id = request.session.get('user_id')
+    if not user_id:
+        return redirect('/login')
+
+    try:
+        user = projectUserModel.objects.get(id=user_id)
+        notifications = Notification.objects.filter(user=user).order_by('-created_at')
+    except projectUserModel.DoesNotExist:
+        return redirect('/login')
+
+    return render(request, "notifications.html", {"notifications": notifications})
 
 
 def product(request,pk):

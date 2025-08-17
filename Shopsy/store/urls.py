@@ -15,6 +15,7 @@ urlpatterns=[
     path('product/<int:pk>',views.product,name="product"),
     path('category/<str:foo>',views.category,name="category"),
     path("change_password", views.change_password, name="change_password"),
+    path("notifications/", views.notifications, name="notifications"),
 
 
 ]
