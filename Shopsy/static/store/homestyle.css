@@ -186,6 +186,12 @@ header>input::placeholder{
     border-radius: 8px;
     margin-bottom: 10px;
 }
+.category-cart a{
+    text-decoration: none;
+}
+.category-cart a:hover{
+    color: black;
+}
 .products {
     margin-left: 5vw;
     padding: 50px 5%;
@@ -214,7 +220,7 @@ header>input::placeholder{
 .product-cart {
     align-items: center;
     max-width: 260px;
-    height: 400px;
+    /* height: 400px; */
     background:var(--sec);
     border-radius: 15px;
     overflow: hidden;

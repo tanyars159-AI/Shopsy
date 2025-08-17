@@ -1,0 +1,28 @@
+{% extends 'base.html'%}
+{% load static %}
+{% block content %}
+    
+    <!-- Products -->
+    <section class="products">
+
+        <h1>{{category}}</h1>
+        
+        <div class="product-grid">
+            {% for product in products %}
+            <div class="product-cart">
+                <img class="product-image" src="{{product.image.url}}">
+                <div class="product-details">
+                    <h5>{{product.name}}</h5>
+                    <p>{{product.price}}Rs.</p>
+                    <!-- <p>{{product.description}}</p> -->
+                    <button>Add to card</button>
+                    <a href="{% url 'product' product.id %}">View Product>></a>
+                </div>
+            </div>
+            {% endfor%}
+            
+        </div>
+        
+    
+    </section>
+{% endblock %}

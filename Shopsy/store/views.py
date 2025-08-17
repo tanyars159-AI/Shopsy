@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from .models import Products
+from .models import Products,Category
 from django.contrib.auth import authenticate,login,logout
 from django.contrib import messages
 from store.models import *
@@ -8,7 +8,17 @@ from django.contrib.auth.hashers import make_password, check_password
 # Create your views here.
 def home(request):
     products=Products.objects.all()
-    return render(request,"home.html",{'products':products})
+    category=Category.objects.all()
+    return render(request,"home.html",{'products':products,'category':category})
+def category(request,foo):
+    foo=foo.replace('-',' ')
+    try:
+        category=Category.objects.get(name=foo)
+        products=Products.objects.filter(category=category)
+        return render(request,"category.html",{'products':products,'category':category})
+    except:
+        messages.success(request,("That Category Doesn't Exist"))
+        return redirect('home')
 def about(request):
     return render(request,'about.html',{})
 def notify(request):
