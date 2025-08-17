@@ -13,7 +13,8 @@ urlpatterns=[
     path('logout',views.logout_user,name='logout'),
     path('signup',views.signup,name="signup"),
     path('product/<int:pk>',views.product,name="product"),
-    path('category/<str:foo>',views.category,name="category")
+    path('category/<str:foo>',views.category,name="category"),
+    path("change_password", views.change_password, name="change_password"),
 
 
 ]

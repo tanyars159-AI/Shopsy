@@ -461,3 +461,76 @@ header>input::placeholder{
     margin: 5px 0;
 }
 
+.settings-container {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.settings-container h1 {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.settings-section {
+    background: #f9f9f9;
+    padding: 20px;
+    margin-bottom: 25px;
+    border-radius: 8px;
+    box-shadow: 0px 2px 5px rgba(0,0,0,0.1);
+}
+
+.settings-section h2 {
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.settings-section label {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.settings-section input[type="text"],
+.settings-section input[type="email"],
+.settings-section input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.settings-section button {
+    margin-top: 15px;
+    padding: 10px 20px;
+    border: none;
+    background: #4CAF50;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.settings-section button:hover {
+    background: #45a049;
+}
+
+.logout {
+    text-align: center;
+}
+
+.logout-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background: #e74c3c;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.logout-btn:hover {
+    background: #c0392b;
+}
+
+
