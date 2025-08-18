@@ -1,0 +1,27 @@
+{% extends 'base.html'%}
+{% block content %}
+{% load static %}
+    <h1>Search Results for '{{query}}'</h1>
+    {% if result %}
+    <!-- Products -->
+     
+    <section class="products">
+        <div class="product-grid">
+            {% for product in result %}
+            <div class="product-cart">
+                <img class="product-image" src="{{product.image.url}}">
+                <div class="product-details">
+                    <h5>{{product.name}}</h5>
+                    <p>{{product.price}}Rs.</p>
+                    <!-- <p>{{product.description}}</p> -->
+                    <button>Add to card</button>
+                    <a href="{% url 'product' product.id %}">View Product>></a>
+                </div>
+            </div>
+            {% endfor %} 
+        </div>
+    </section>
+    {% else %}
+    <p>No Products found.</p>
+    {% endif %}
+{% endblock %}

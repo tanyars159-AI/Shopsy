@@ -1,15 +1,28 @@
 from django.shortcuts import render,redirect
 from .models import Products,Category
-from django.contrib.auth import authenticate,login,logout
+from django.db.models import Q
+from django.contrib.auth import authenticate, login,logout
 from django.contrib import messages
 from store.models import *
 from store.forms import *
-from django.contrib.auth.hashers import make_password, check_password
-# Create your views here.
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
+from django import forms
+from django.contrib.auth.hashers import check_password, make_password
+
 def home(request):
     products=Products.objects.all()
     category=Category.objects.all()
     return render(request,"home.html",{'products':products,'category':category})
+def search(request):
+    query=request.GET.get('q')
+    result=[]
+    if query:
+        results=Products.objects.filter(
+            Q(name__icontains=query)|
+            Q(description__icontains=query)
+        )
+    return render(request,'Search.html',{'query':query,'result':results})
 def category(request,foo):
     foo=foo.replace('-',' ')
     try:
@@ -28,61 +41,18 @@ def set(request):
 def cart(request):
     return render(request,'cart.html',{})
 def login_user(request):
-    if request.method == "POST":
-        sin = ProjectUserLogInForm(request.POST)
-        if sin.is_valid():
-            email = sin.cleaned_data['email']
-            password = sin.cleaned_data['password']
-            try:
-                user = projectUserModel.objects.get(email=email)
-                if check_password(password, user.password):
-                    request.session['user_id'] = user.id
-                    print("Session set for:", user.username)
-                    Notification.objects.create(
-                        user=user,
-                        message="You have successfully logged into your account."
-                    )
-                    return redirect('/profile')
-                else:
-                    msg = "Invalid email or password"
-                    return render(request, 'LogIn.html', {"sin": sin, "msg": msg})
-            except projectUserModel.DoesNotExist:
-                msg = "Invalid email or password"
-                return render(request, 'LogIn.html', {"sin": sin, "msg": msg})
-    else:
-        sin = ProjectUserLogInForm()
-    return render(request, "LogIn.html", {'sin': sin})
-
-
-def profile(request):
-    user_id = request.session.get('user_id')
-    if user_id:
-        try:
-            user = projectUserModel.objects.get(id=user_id)
-            return render(request, "profile.html", {"user": user})
-        except projectUserModel.DoesNotExist:
-            return redirect('/login')
-    return redirect('/login')
-
-def signup(request):
-    if request.method=="GET":
-        sup=ProjectUserSignUpModelForm()
-        return render(request,"SignUp.html",{'sup':sup})
-    elif request.method=="POST":
-        sup=ProjectUserSignUpModelForm(request.POST)
-        if sup.is_valid():
-            user=sup.save(commit=False)
-            user.password=make_password(user.password)
-            user.save()
-            Notification.objects.create(
-                user=user,
-                message="Welcome to our store! 🎉"
-            )
-            return redirect('/login')
+    if request.method=="POST":
+        username=request.POST['username']
+        password=request.POST['password']
+        user=authenticate(request,username=username,password=password)
+        if user is not None:
+            login(request,user)
+            return redirect('home')
         else:
-            return render(request,'SignUp.html',{'sup':sup})
-
-
+            messages.success(request,("There was an error,please try again"))
+            return redirect('login')
+    else:  
+        return render(request,"LogIn.html")
 def logout_user(request):
     if 'user_id' in request.session:
         try:
@@ -98,8 +68,15 @@ def logout_user(request):
     messages.success(request, "You have been logged out..thanks for visiting")
 
     return redirect('home')
-
-from django.contrib.auth.hashers import check_password, make_password
+  def profile(request):
+    user_id = request.session.get('user_id')
+    if user_id:
+        try:
+            user = projectUserModel.objects.get(id=user_id)
+            return render(request, "profile.html", {"user": user})
+        except projectUserModel.DoesNotExist:
+            return redirect('/login')
+    return redirect('/login')
 
 def change_password(request):
     if request.method == "POST":
@@ -139,8 +116,37 @@ def notifications(request):
         return redirect('/login')
 
     return render(request, "notifications.html", {"notifications": notifications})
-
-
+def register_user(request):
+    form=SignUpForm()
+    if request.method=="POST":
+        form=SignUpForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username=form.cleaned_data['username']
+            password=form.cleaned_data['password']
+            user=authenticate(username=username,password=password)
+            login(request,user)
+            messages.success(request,("You Have Registered Succesfully"))
+            return redirect('home')
+        else:
+            messages.success(request,("OOps there was a problem please try again later"))
+            return redirect('register')
+    else:
+        return render(request,'Register.html',{'form':form})
+def update_user(request):
+    if request.user.is_authenticated:
+        current_users=User.objects.get(id=request.user.id)
+        user_form=UpdateUserForm(request.POST or None,instance=current_users)
+        if user_form.is_valid():
+            user_form.save()
+            login(request,current_users)
+            messages.success(request,("User has been updated"))
+            return redirect('home')
+        return render(request,'Update.html',{'form':user_form})
+    else:
+        messages.success(request,"You must be logged in to access that page")
+        return redirect('home')
+      
 def product(request,pk):
     product=Products.objects.get(id=pk)
     return render(request,'product.html',{'product':product})
