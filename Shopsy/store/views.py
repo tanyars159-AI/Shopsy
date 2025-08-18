@@ -10,6 +10,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
 
+
+
 def home(request):
     products=Products.objects.all()
     category=Category.objects.all()
@@ -41,50 +43,18 @@ def set(request):
 def cart(request):
     return render(request,'cart.html',{})
 def login_user(request):
-    if request.method=="GET":
-        sin=ProjectUserLogInForm()
-        return render(request,"LogIn.html",{'sin':sin})
-    elif request.method=="POST":
-        sin=ProjectUserLogInForm(request.POST)
-        if sin.is_valid():
-            email=sin.cleaned_data['email']
-            password=sin.cleaned_data['password']
-            try:
-                user=projectUserModel.objects.get(email=email)
-                if check_password(password,user.password):
-
-                    request.session['user']=user.username
-                    print("Session set for:",user.username)
-                    return redirect('/profile')
-                else:
-                    msg="invalid email or password"
-                    print("Passowrd check failed")
-                    return render(request,'LogIn.html',{"sin":sin,"msg":msg})
-            except projectUserModel.DoesNotExist:
-                msg="Invalid email or password"
-                return render(request,'LogIn.html',{"sin":sin,"msg":msg})
+    if request.method=="POST":
+        username=request.POST['username']
+        password=request.POST['password']
+        user=authenticate(request,username=username,password=password)
+        if user is not None:
+            login(request,user)
+            return redirect('home')
         else:
-            print("Form is not valid. Errors:",sin.errors)
-            return redirect('/login')
-def signup(request):
-    if request.method=="GET":
-        sup=ProjectUserSignUpModelForm()
-        return render(request,"SignUp.html",{'sup':sup})
-    elif request.method=="POST":
-        sup=ProjectUserSignUpModelForm(request.POST)
-        if sup.is_valid():
-            user=sup.save(commit=False)
-            user.password=make_password(user.password)
-            user.save()
-            return redirect('/login')
-        else:
-            return render(request,'SignUp.html',{'sup':sup})
-def profile(request):
-    if 'user' in request.session:
-
-        return render(request,"profile.html",{'username':request.session['user']})
-    else:
-        return redirect('/login')
+            messages.success(request,("There was an error,please try again"))
+            return redirect('login')
+    else:  
+        return render(request,"LogIn.html")
 def logout_user(request):
     if 'user_id' in request.session:
         try:
@@ -100,6 +70,85 @@ def logout_user(request):
     messages.success(request, "You have been logged out..thanks for visiting")
 
     return redirect('home')
+def profile(request):
+    user_id = request.session.get('user_id')
+    if user_id:
+        try:
+            user = projectUserModel.objects.get(id=user_id)
+            return render(request, "profile.html", {"user": user})
+        except projectUserModel.DoesNotExist:
+            return redirect('/login')
+    return redirect('/login')
+
+def change_password(request):
+    if request.method == "POST":
+        old_password = request.POST['old_password']
+        new_password = request.POST['new_password']
+
+        user_id = request.session.get('user_id')
+        if not user_id:
+            return redirect('/login')
+
+        try:
+            user = projectUserModel.objects.get(id=user_id)
+            if check_password(old_password, user.password):
+                user.password = make_password(new_password)
+                user.save()
+                Notification.objects.create(
+                user=user,
+                message="Welcome Back! 🎉."
+                )
+                messages.success(request, "Password updated successfully!")
+                return redirect('/profile')
+            else:
+                messages.error(request, "Old password is incorrect.")
+                return redirect('/settings')
+        except projectUserModel.DoesNotExist:
+            return redirect('/login')
+        
+def notifications(request):
+    user_id = request.session.get('user_id')
+    if not user_id:
+        return redirect('/login')
+
+    try:
+        user = projectUserModel.objects.get(id=user_id)
+        notifications = Notification.objects.filter(user=user).order_by('-created_at')
+    except projectUserModel.DoesNotExist:
+        return redirect('/login')
+
+    return render(request, "notifications.html", {"notifications": notifications})
+def register_user(request):
+    form=SignUpForm()
+    if request.method=="POST":
+        form=SignUpForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username=form.cleaned_data['username']
+            password=form.cleaned_data['password']
+            user=authenticate(username=username,password=password)
+            login(request,user)
+            messages.success(request,("You Have Registered Succesfully"))
+            return redirect('home')
+        else:
+            messages.success(request,("OOps there was a problem please try again later"))
+            return redirect('register')
+    else:
+        return render(request,'Register.html',{'form':form})
+def update_user(request):
+    if request.user.is_authenticated:
+        current_users=User.objects.get(id=request.user.id)
+        user_form=UpdateUserForm(request.POST or None,instance=current_users)
+        if user_form.is_valid():
+            user_form.save()
+            login(request,current_users)
+            messages.success(request,("User has been updated"))
+            return redirect('home')
+        return render(request,'Update.html',{'form':user_form})
+    else:
+        messages.success(request,"You must be logged in to access that page")
+        return redirect('home')
+      
 def product(request,pk):
     product=Products.objects.get(id=pk)
     return render(request,'product.html',{'product':product})
