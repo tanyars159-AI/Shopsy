@@ -76,7 +76,19 @@ def register_user(request):
     else:
         return render(request,'Register.html',{'form':form})
 def update_user(request):
-    return render(request,'Update.html')
+    if request.user.is_authenticated:
+        current_users=User.objects.get(id=request.user.id)
+        user_form=UpdateUserForm(request.POST or None,instance=current_users)
+        if user_form.is_valid():
+            user_form.save()
+            login(request,current_users)
+            messages.success(request,("User has been updated"))
+            return redirect('home')
+        return render(request,'Update.html',{'form':user_form})
+    else:
+        messages.success(request,"You must be logged in to access that page")
+        return redirect('home')
+    
 def product(request,pk):
     product=Products.objects.get(id=pk)
     return render(request,'product.html',{'product':product})
