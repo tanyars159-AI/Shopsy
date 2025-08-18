@@ -1,16 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>login form</title>
 </head>
 <body>
-    <form action="login">
+    <h1>Login Here</h1>
+    <form class="product-cart" method="post" action="{% url 'login'%}">
         {% csrf_token %}
-        {{sin}}
-        <input type="submit" value="Log-in">
+        <div>
+            <input type="text" name="username" placeholder="Enter Your Username">
+        </div>
+        <div>
+            <input type="password" name="password" placeholder="Enter your password">
+        </div>
+        <button type="submit">Login</button>
     </form>
-    
 </body>
 </html>
+{% endblock %}

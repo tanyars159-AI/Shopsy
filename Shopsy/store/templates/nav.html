@@ -35,7 +35,7 @@
                 </svg>
 
             </a>
-            <a href="{% url 'profile' %}" title="User">
+            <a href="" title="User">
                 <svg xmlns="http://www.w3.org/2000/svg" 
                     viewBox="0 0 24 24" 
                     fill="none" 
@@ -92,7 +92,9 @@
             <a href="{% url 'logout' %}">Log-out</a>
             {% else %}
             <a href="{% url 'login' %}">Log-in</a>
+            <a href="{% url 'register' %}">Register</a>
             {% endif %}
+            
     </nav>
     
 </body>
