@@ -5,7 +5,6 @@ from django.contrib.auth import authenticate, login,logout
 from django.contrib import messages
 from store.models import *
 from store.forms import *
-from django.contrib.auth.hashers import make_password, check_password
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
@@ -47,7 +46,6 @@ def login_user(request):
         user=authenticate(request,username=username,password=password)
         if user is not None:
             login(request,user)
-            messages.success("You have been logged in")
             return redirect('home')
         else:
             messages.success(request,("There was an error,please try again"))

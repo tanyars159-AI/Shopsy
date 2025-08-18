@@ -2,13 +2,12 @@
 {% block content %}
 {% load static %}
     <h1>Search Results for '{{query}}'</h1>
-    {% if results %}
+    {% if result %}
     <!-- Products -->
      
     <section class="products">
         <div class="product-grid">
-            {% for product in results %}
-            <!-- {% for product in products %} -->
+            {% for product in result %}
             <div class="product-cart">
                 <img class="product-image" src="{{product.image.url}}">
                 <div class="product-details">
