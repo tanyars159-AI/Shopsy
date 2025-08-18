@@ -408,3 +408,150 @@ header form input::placeholder{
     border-top: 1px solid #444;
     padding-top: 15px;
 }
+
+.about-container {
+    padding: 50px;
+    font-family: Arial, sans-serif;
+    color: #333;
+}
+
+.about-hero {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.about-hero h1 {
+    font-size: 2.5rem;
+    color: #222;
+}
+
+.about-content h2 {
+    margin-top: 30px;
+    color: #444;
+}
+
+.about-content p {
+    line-height: 1.6;
+    margin: 10px 0;
+}
+
+.team {
+    display: flex;
+    gap: 30px;
+    margin: 20px 0;
+}
+
+.team-member {
+    text-align: center;
+    width: 200px;
+}
+
+.team-member img {
+    width: 100%;
+    border-radius: 50%;
+    box-shadow: 0px 2px 6px rgba(0,0,0,0.2);
+}
+
+.contact-info {
+    list-style: none;
+    padding: 0;
+}
+
+.contact-info li {
+    margin: 5px 0;
+}
+
+.settings-container {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.settings-container h1 {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.settings-section {
+    background: #f9f9f9;
+    padding: 20px;
+    margin-bottom: 25px;
+    border-radius: 8px;
+    box-shadow: 0px 2px 5px rgba(0,0,0,0.1);
+}
+
+.settings-section h2 {
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.settings-section label {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.settings-section input[type="text"],
+.settings-section input[type="email"],
+.settings-section input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.settings-section button {
+    margin-top: 15px;
+    padding: 10px 20px;
+    border: none;
+    background: #4CAF50;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.settings-section button:hover {
+    background: #45a049;
+}
+
+.logout {
+    text-align: center;
+}
+
+.logout-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background: #e74c3c;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.logout-btn:hover {
+    background: #c0392b;
+}
+
+.notifications-container {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+.notifications-list {
+    list-style: none;
+    padding: 0;
+}
+
+.notifications-list li {
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+.notifications-list li.unread {
+    background: #f5faff;
+    font-weight: bold;
+}
+
+

@@ -1,5 +1,59 @@
-{% extends 'base.html'%}
-{% load static %}
-{% block content %}
-<h1>This is Setting</h1>
+{% extends 'base.html'%} {% load static %} {% block content %}
+<section class="settings-container">
+  <h1>Account Settings</h1>
+
+  <!-- Profile Info -->
+  <div class="settings-section">
+    <h2>User Details</h2>
+    <form method="post">
+      {% csrf_token %}
+      <label>Full Name</label>
+      <input type="text" name="name" value="{{ user.username }}" required />
+
+      <label>Email</label>
+      <input type="email" name="email" value="{{ user.email }}" required />
+
+      <label>Phone</label>
+      <input type="text" name="phone" placeholder="Enter phone number" />
+
+      <button type="submit">Update Profile</button>
+    </form>
+  </div>
+
+  <!-- Change Password -->
+  <div class="settings-section">
+    <h2>Change Password</h2>
+    <form method="post" action="{% url 'change_password' %}">
+      {% csrf_token %}
+      <label>Current Password</label>
+      <input type="password" name="old_password" required />
+
+      <label>New Password</label>
+      <input type="password" name="new_password" required />
+
+      <button type="submit">Change Password</button>
+    </form>
+  </div>
+
+  <!-- Preferences -->
+  <div class="settings-section">
+    <h2>Preferences</h2>
+    <form>
+      <label>
+        <input type="checkbox" name="notifications" checked />
+        Enable Notifications
+      </label>
+      <label>
+        <input type="checkbox" name="dark_mode" />
+        Dark Mode
+      </label>
+      <button type="submit">Save Preferences</button>
+    </form>
+  </div>
+
+  <!-- Logout -->
+  <div class="settings-section logout">
+    <a href="{% url 'logout' %}" class="logout-btn">Logout</a>
+  </div>
+</section>
 {% endblock %}

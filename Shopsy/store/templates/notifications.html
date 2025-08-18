@@ -1,5 +1,17 @@
-{% extends 'base.html'%}
-{% load static %}
-{% block content %}
-<h1>This is Notifications section</h1>
+{% extends 'base.html'%} {% load static %} {% block content %}
+<section class="notifications-container">
+  <h1>Notifications</h1>
+  {% if notifications %}
+  <ul class="notifications-list">
+    {% for n in notifications %}
+    <li class="{% if not n.is_read %}unread{% endif %}">
+      <p>{{ n.message }}</p>
+      <small>{{ n.created_at|date:"M d, Y H:i" }}</small>
+    </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <p>No notifications yet.</p>
+  {% endif %}
+</section>
 {% endblock %}
