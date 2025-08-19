@@ -1,30 +1,74 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'store/productstyle.css' %}" >
-</head>
-<body>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'store/productstyle.css' %}"
+    />
+  </head>
+  <body>
     <div class="product">
-        <div class="product-cart" >
-        <div><img class="product-image" src="{{ product.image.url }}"></div>
+      <div class="product-cart">
+        <div><img class="product-image" src="{{ product.image.url }}" /></div>
         <div class="product-details">
-            <h5 class="card-title">{{product.name}}</h5>
-            <p class="card-text">{{product.price}}</p>
-            <p class="card=text">{{product.category}}</p>
-            <p class="card-text">{{product.description}}</p>
-            <button>Buy-Now</button>
-            <p><a href="{% url 'home' %}">Home</a></p>
-
+          <h5 class="card-title">{{product.name}}</h5>
+          <p class="card-text">{{product.price}}</p>
+          <p class="card-text">ID: {{product.id}}</p>
+          <p class="card=text">{{product.category}}</p>
+          <p class="card-text">{{product.description}}</p>
+          <p>
+            Quantity:
+            <select class="form-select form-select-sm" id="qty-cart">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+            </select>
+          </p>
+          <button>Buy-Now</button>
+          <button type="button" value="{{product.id}}" id="add-cart">
+            Add to Cart
+          </button>
+          <p><a href="{% url 'home' %}">Home</a></p>
         </div>
+      </div>
+      <!-- RightSideNavbar -->
+      {% include 'nav.html' %}
+      <!-- footer section -->
+      {% include 'footer.html'%}
     </div>
-    <!-- RightSideNavbar -->
-    {% include 'nav.html' %}
-    <!-- footer section -->
-    {% include 'footer.html'%}
-</div>
-</body>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+      //check if button pressed
+      $(document).on("click", "#add-cart", function (e) {
+        e.preventDefault();
+        $.ajax({
+          type: "POST",
+          url: "{% url 'cart_add' %}",
+          data: {
+            product_id: $("#add-cart").val(),
+            product_qty: $("#qty-cart option:selected").text(),
+            csrfmiddlewaretoken: "{{csrf_token}}",
+            action: "post",
+          },
+
+          success: function (json) {
+            //console.log(json);, update it live
+            document.getElementById("cart_quantity").textContent = json.qty;
+          },
+
+          error: function (xhr, errmsg, err) {
+            console.error("Error adding to cart:", errmsg);
+          },
+        });
+      });
+    </script>
+  </body>
 </html>

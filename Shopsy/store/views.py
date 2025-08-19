@@ -5,12 +5,14 @@ from django.contrib.auth import authenticate, login,logout
 from django.contrib import messages
 from store.models import *
 from store.forms import *
+from django.contrib.auth.hashers import make_password, check_password
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from payment.forms import ShippingForm
 from payment.models import ShippingAddress
 from django import forms
-from django.contrib.auth.hashers import check_password, make_password
+
+
 
 def home(request):
     products=Products.objects.all()
@@ -40,8 +42,6 @@ def notify(request):
     return render(request,'notifications.html',{})
 def set(request):
     return render(request,'settings.html',{})
-def cart(request):
-    return render(request,'cart.html',{})
 def login_user(request):
     if request.method=="POST":
         username=request.POST['username']
