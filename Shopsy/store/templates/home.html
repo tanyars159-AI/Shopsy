@@ -80,14 +80,58 @@
     <div class="product-cart">
       <img class="product-image" src="{{product.image.url}}" />
       <div class="product-details">
-        <h5>{{product.name}}</h5>
-        <p>{{product.price}}Rs.</p>
+        <h5 class="card-title">{{product.name}}</h5>
+        <p class="card-text">Rs.{{product.price}}</p>
         <!-- <p>{{product.description}}</p> -->
-        <button>Add to cart</button>
+        <p>
+          Quantity:
+            <select class="form-select form-select-sm qty-cart">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+            </select>
+        </p>
+        <button>Buy-Now</button>
+        <button type="button" value="{{product.id}}" class="add-cart">Add to cart</button>
         <a href="{% url 'product' product.id %}">View Product>></a>
       </div>
     </div>
     {% endfor%}
   </div>
 </section>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+  //check if button pressed
+  $(document).on("click", ".add-cart", function (e) {
+    e.preventDefault();
+
+    let product_id = $(this).val(); // button value
+    let product_qty = $(this).closest(".product-details").find(".qty-cart").val(); // dropdown near button
+
+
+    $.ajax({
+      type: "POST",
+      url: "{% url 'cart_add' %}",
+      data: {
+            product_id: product_id,
+            product_qty: product_qty,
+            csrfmiddlewaretoken: "{{csrf_token}}",
+            action: "post",
+      },
+
+      success: function (json) {
+          //console.log(json);, update it live
+          document.getElementById("cart_quantity").textContent = json.qty;
+      },
+
+      error: function (xhr, errmsg, err) {
+          console.error("Error adding to cart:", errmsg);
+      },
+    });
+  });
+</script>
 {% endblock %}

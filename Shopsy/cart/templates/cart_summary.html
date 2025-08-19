@@ -72,16 +72,57 @@
         </div>
       </div>
       <br/>
-    {% endfor %} 
+
+      <div class="product-details">
+        <h5 class="card-title">{{product.name}}</h5>
+        <p class="card-text">{{product.price}}</p>
+        <p class="card-text">{{product.category}}</p>
+        <p class="card-text">{{product.description}}</p>
+        <p>
+          Quantity:
+          <select class="form-select form-select-sm" id="select{{product.id}}">
+            {% for key, value in quantities.items %} 
+              {% if key == product.id|slugify %}
+                <option selected>{{ value }}</option>
+              {% endif %} 
+            {% endfor %}
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+          </select>
+        </p>
+        <button type="button" data-index="{{ product.id }}" class="buy-cart">Buy-Now</button>
+        <button type="button" data-index="{{ product.id }}" class="update-cart">Update Item</button>
+        <button type="button" data-index="{{ product.id }}" class="delete-cart" style="background-color: #ff0000">Remove Item</button>
+        <p><a href="{% url 'home' %}">Home</a></p>
+      </div>
+    </div>
+  </div>
+  <br />
+
+  {% endfor %}
+  <div style="flex-basis: 100%; text-align: left; margin-top: 20px;">
+    <h3>Total Amount: ${{ totals }}</h3>
+  </div>
   {% else %}
-      <p>There's Nothing in your Cart...</p>
-  <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+  <div style="display: flex; justify-content: center; align-items: center; height: 50vh; width: 100%;">
+    <h2 style="text-align: center">
+        <p style="font-size: 150px; text-align: center;">🛒</p>
+        Your Cart is empty like your love life 😝 <br>
+        Browse Our Page to fill this emptiness... ✨
+    </h2>
+  </div>
+  <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
   {% endif %}
 </div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+
 <script>
+  // Update Cart
   $(document).on("click", ".update-cart", function (e) {
     e.preventDefault();
     //grab the product id
@@ -134,7 +175,33 @@
     }
   });
 });
+  // Delete Cart
+$(document).on("click", ".delete-cart", function (e) {
+    e.preventDefault();
+    //grab the product id
+    //var productid = $(this).data('index');
 
+    $.ajax({
+    type: "POST",
+    url: "{% url 'cart_delete' %}",
+    data: {
+            product_id: $(this).data('index'),
+            csrfmiddlewaretoken: "{{csrf_token}}",
+            action: "post",
+    },
+
+    success: function (json) {
+        //console.log(json);, update it live
+        //document.getElementById("cart_quantity").textContent = json.qty;
+        location.reload();
+    },
+
+    error: function (xhr, errmsg, err) {
+        console.error("Error deleteing to cart:", errmsg);
+    },
+  });
+
+});
 
 </script>
 
