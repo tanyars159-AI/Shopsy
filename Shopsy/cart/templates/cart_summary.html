@@ -72,36 +72,7 @@
         </div>
       </div>
       <br/>
-
-      <div class="product-details">
-        <h5 class="card-title">{{product.name}}</h5>
-        <p class="card-text">{{product.price}}</p>
-        <p class="card-text">{{product.category}}</p>
-        <p class="card-text">{{product.description}}</p>
-        <p>
-          Quantity:
-          <select class="form-select form-select-sm" id="select{{product.id}}">
-            {% for key, value in quantities.items %} 
-              {% if key == product.id|slugify %}
-                <option selected>{{ value }}</option>
-              {% endif %} 
-            {% endfor %}
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-          </select>
-        </p>
-        <button>Buy-Now</button>
-        <button type="button" data-index="{{ product.id }}" class="update-cart">Update</button>
-        <p><a href="{% url 'home' %}">Home</a></p>
-      </div>
-    </div>
-  </div>
-  <br />
-
-      {% endfor %} 
+    {% endfor %} 
   {% else %}
       <p>There's Nothing in your Cart...</p>
   <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
