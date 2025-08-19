@@ -16,14 +16,15 @@
 
 <!-- Search bar -->
 <div style="text-align: center; margin-top: 50px">
-  <form method="get" action="{% url 'search' %}">
     <input
       type="text"
-      name="q"
+      id="cartSearch"
       placeholder="Search Cart Products...."
       style="padding: 10px; width: 300px; font-size: 16px; border: 2px"
     />
-  </form>
+    <p id="noMatchMsg" style="display: none; color: red; margin-top: 10px;">
+    No matching products found in cart.
+    </p>
   <br /><br />
 </div>
 <!-- Product container -->
@@ -72,11 +73,98 @@
       </div>
       <br/>
 
+      <div class="product-details">
+        <h5 class="card-title">{{product.name}}</h5>
+        <p class="card-text">{{product.price}}</p>
+        <p class="card-text">{{product.category}}</p>
+        <p class="card-text">{{product.description}}</p>
+        <p>
+          Quantity:
+          <select class="form-select form-select-sm" id="select{{product.id}}">
+            {% for key, value in quantities.items %} 
+              {% if key == product.id|slugify %}
+                <option selected>{{ value }}</option>
+              {% endif %} 
+            {% endfor %}
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+          </select>
+        </p>
+        <button>Buy-Now</button>
+        <button type="button" data-index="{{ product.id }}" class="update-cart">Update</button>
+        <p><a href="{% url 'home' %}">Home</a></p>
+      </div>
+    </div>
+  </div>
+  <br />
+
       {% endfor %} 
   {% else %}
       <p>There's Nothing in your Cart...</p>
   <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
   {% endif %}
 </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+  $(document).on("click", ".update-cart", function (e) {
+    e.preventDefault();
+    //grab the product id
+    var productid = $(this).data('index');
+
+    $.ajax({
+        type: "POST",
+        url: "{% url 'cart_update' %}",
+        data: {
+            product_id: $(this).data('index'),
+            product_qty: $("#select" + productid + " option:selected").val(),
+            csrfmiddlewaretoken: "{{csrf_token}}",
+            action: "post",
+          },
+
+          success: function (json) {
+            //console.log(json);, update it live
+            //document.getElementById("cart_quantity").textContent = json.qty;
+            location.reload();
+          },
+
+          error: function (xhr, errmsg, err) {
+            console.error("Error updating to cart:", errmsg);
+          },
+        });
+      });
+
+  // Live filter for cart products
+  $(document).ready(function () {
+    $("#cartSearch").on("keyup", function () {
+      var value = $(this).val().toLowerCase();
+      var found = false;
+
+      $(".product-cart").each(function () {
+        var productName = $(this).find(".card-title").text().toLowerCase();
+
+        if (productName.indexOf(value) > -1) {
+          $(this).show();
+          found = true;
+        } else {
+          $(this).hide();
+        }
+    });
+
+    // Show or hide the 'no match' message
+    if (!found) {
+      $("#noMatchMsg").show();
+    } else {
+      $("#noMatchMsg").hide();
+    }
+  });
+});
+
+
+</script>
 
 {% endblock %}
