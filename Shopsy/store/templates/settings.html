@@ -11,17 +11,23 @@
         <input type="text" name="first_name" value="{{ user_form.first_name }}" placeholder="Enter First Name" required />
         <input type="text" name="last_name" value="{{ user_form.last_name }}"  placeholder="Enter Last Name" required />
         <input type="email" name="email" value="{{ user_form.email }}" placeholder="Enter Email" required />
+        <button type="submit">Update</button>
     </form>
    </div>
   <div class="settings-section">
     <h1>Update Information</h1>
     <form  method="post" action="{% url 'update_info'%}">
         {% csrf_token %}
-        <strong>User Information</strong>
-        <input type="text" name="username"  value="{{ form.username }}" placeholder="Enter Username" required />
-        <input type="text" name="first_name" value="{{ form.first_name }}" placeholder="Enter First Name" required />
-        <input type="text" name="last_name" value="{{ form.last_name }}"  placeholder="Enter Last Name" required />
-        <input type="email" name="email" value="{{ form.email }}" placeholder="Enter Email" required />
+        <strong>Billing Information</strong>
+        <input type="text" name="Shipping_full_name" value="{{form.Shipping_full_name}}" placeholder="Full Name" required>
+        <input type="email" name="Shipping_email " value="{{form.email}}" placeholder="Email" required>
+        <input type="text"  name="Shipping_address1 " value="{{form.address1}}" placeholder="First Adresss" required>
+        <input type="text"  name="Shipping_address2 " value="{{form.address2}}" placeholder="Other Address" required>
+        <input type="text"  name="Shipping_city" value="{{form.city}}" placeholder="City" required>
+        <input type="text"  name="Shipping_state" value="{{form.state}}" placeholder="State" >
+        <input type="number"name="Shipping_zipcode" value="{{form.zipcode}}" placeholder="Zipcode">
+        <input type="text"  name="Shipping_country" value="{{form.country}}" placeholder="Country" required>
+        
         <strong>Shipping Information</strong>
         <input type="text" name="Shipping_full_name" value="{{shipping_form.Shipping_full_name}}" placeholder="Full Name" required>
         <input type="email" name="Shipping_email " value="{{shipping_form.Shipping_email}}" placeholder="Email" required>
@@ -30,8 +36,7 @@
         <input type="text"  name="Shipping_city" value="{{shipping_form.Shipping_city}}" placeholder="City" required>
         <input type="text"  name="Shipping_state" value="{{shipping_form.Shipping_state}}" placeholder="State" >
         <input type="number"name="Shipping_zipcode" value="{{shipping_form.Shipping_zipcode}}" placeholder="Zipcode">
-        <input type="text"  name="Shipping_country" value="{{shipping_form.Shipping_country}}" placeholder="CountRY" required>
-
+        <input type="text"  name="Shipping_country" value="{{shipping_form.Shipping_country}}" placeholder="Country" required>
         <button type="submit">Update</button>      
     </form>
   </div>

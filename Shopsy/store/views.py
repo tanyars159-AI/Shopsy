@@ -36,6 +36,8 @@ def category(request,foo):
     except:
         messages.success(request,("That Category Doesn't Exist"))
         return redirect('home')
+def cart(request):
+    return render(request,'cart.html',{})
 def about(request):
     return render(request,'about.html',{})
 def notify(request):
