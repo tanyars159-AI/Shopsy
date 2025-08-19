@@ -32,47 +32,17 @@
   class="container"
   style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: flex-start"
 >
-  {% if cart_products %} 
-    {% for product in cart_products %}
+  {% if cart_products %} {% for product in cart_products %}
 
-      <div class="product">
-        <div class="product-cart">
-          <div>
-            <img
-              class="product-image"
-              src="{{ product.image.url }}"
-              style="width: 100%; height: auto"
-            />
-          </div>
-          <div class="product-details">
-            <h5 class="card-title">{{product.name}}</h5>
-            <p class="card-text">{{product.price}}</p>
-            <p class="card=text">{{product.category}}</p>
-            <p class="card-text">{{product.description}}</p>
-            <p>
-              Quantity:
-              <select class="form-select form-select-sm" id="qty-cart">
-                <option selected>
-                  {% for key, value in quantities.items %} 
-                    {% if key == product.id|slugify %}
-                      {{ value }} 
-                    {% endif %} 
-                  {% endfor %}
-                </option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-              </select>
-            </p>
-            <button>Buy-Now</button>
-            <p><a href="{% url 'home' %}">Home</a></p>
-          </div>
-        </div>
+  <div class="product">
+    <div class="product-cart">
+      <div>
+        <img
+          class="product-image"
+          src="{{ product.image.url }}"
+          style="width: 100%; height: auto"
+        />
       </div>
-      <br/>
-
       <div class="product-details">
         <h5 class="card-title">{{product.name}}</h5>
         <p class="card-text">{{product.price}}</p>
@@ -105,7 +75,7 @@
   {% endfor %}
   <div style="flex-basis: 100%; text-align: left; margin-top: 20px;">
     <h3>Total Amount: ${{ totals }}</h3>
-  </div>
+  </div> 
   {% else %}
   <div style="display: flex; justify-content: center; align-items: center; height: 50vh; width: 100%;">
     <h2 style="text-align: center">
@@ -206,3 +176,7 @@ $(document).on("click", ".delete-cart", function (e) {
 </script>
 
 {% endblock %}
+
+
+
+

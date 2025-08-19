@@ -82,7 +82,6 @@ header form input::placeholder{
 }
 .slider{
     position: relative;
-    top: 50px;
     display: flex;
     flex-direction: row;
 
@@ -129,7 +128,7 @@ header form input::placeholder{
     background-size: cover;
 }
 .hero-banner .hero1{
-    background-image: url(1.png);
+    background-image: url(slide_4.jpg);
     background-position: center;
 }
 .hero-banner .hero2{
@@ -409,57 +408,6 @@ header form input::placeholder{
     padding-top: 15px;
 }
 
-.about-container {
-    padding: 50px;
-    font-family: Arial, sans-serif;
-    color: #333;
-}
-
-.about-hero {
-    text-align: center;
-    margin-bottom: 40px;
-}
-
-.about-hero h1 {
-    font-size: 2.5rem;
-    color: #222;
-}
-
-.about-content h2 {
-    margin-top: 30px;
-    color: #444;
-}
-
-.about-content p {
-    line-height: 1.6;
-    margin: 10px 0;
-}
-
-.team {
-    display: flex;
-    gap: 30px;
-    margin: 20px 0;
-}
-
-.team-member {
-    text-align: center;
-    width: 200px;
-}
-
-.team-member img {
-    width: 100%;
-    border-radius: 50%;
-    box-shadow: 0px 2px 6px rgba(0,0,0,0.2);
-}
-
-.contact-info {
-    list-style: none;
-    padding: 0;
-}
-
-.contact-info li {
-    margin: 5px 0;
-}
 
 .settings-container {
     max-width: 600px;
@@ -476,6 +424,7 @@ header form input::placeholder{
 .settings-section {
     background: #f9f9f9;
     padding: 20px;
+    margin-right: 10px;
     margin-bottom: 25px;
     border-radius: 8px;
     box-shadow: 0px 2px 5px rgba(0,0,0,0.1);
@@ -489,12 +438,14 @@ header form input::placeholder{
 .settings-section label {
     display: block;
     margin-top: 10px;
-    font-weight: bold;
+    
 }
 
 .settings-section input[type="text"],
 .settings-section input[type="email"],
-.settings-section input[type="password"] {
+.settings-section input[type="password"],
+.settings-section input[type="number"] {
+    font-weight: bold;
     width: 100%;
     padding: 10px;
     margin-top: 5px;
@@ -502,7 +453,8 @@ header form input::placeholder{
     border: 1px solid #ccc;
 }
 
-.settings-section button {
+.settings-section button,
+.settings-section input[type='submit'] {
     margin-top: 15px;
     padding: 10px 20px;
     border: none;
@@ -553,5 +505,26 @@ header form input::placeholder{
     background: #f5faff;
     font-weight: bold;
 }
+
+.cart-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.cart-badge {
+  position: absolute;
+  top: -5px;
+  right: -8px;
+  background-color: red;
+  color: white;
+  border-radius: 50%;
+  padding: 2px 6px;
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 1;
+  min-width: 18px;
+  text-align: center;
+}
+
 
 
