@@ -40,8 +40,6 @@ def notify(request):
     return render(request,'notifications.html',{})
 def set(request):
     return render(request,'settings.html',{})
-def cart(request):
-    return render(request,'cart.html',{})
 def login_user(request):
     if request.method=="POST":
         username=request.POST['username']

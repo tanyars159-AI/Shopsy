@@ -60,7 +60,7 @@
       </a>
 
       <!-- cart (store) -->
-      <a href="{% url 'cart'%}" title="cart">
+      <a href="{% url 'cart_summary'%}" title="cart" class="cart-wrapper">
         <svg
           class="icon"
           xmlns="http://www.w3.org/2000/svg"
@@ -78,6 +78,7 @@
             d="M3 4h2l2.1 9.5a2 2 0 0 0 2 1.5h7.3a2 2 0 0 0 2-1.5L21 8H7.2"
           />
         </svg>
+        <span id="cart_quantity" class="cart-badge">{{ cart|length }}</span>
       </a>
       <!-- Settings (gear) -->
       <a href="{% url 'set'%}" title="Settings">

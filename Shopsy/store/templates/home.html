@@ -1,99 +1,93 @@
-{% extends 'base.html'%}
-{% load static %}
-{% block content %}
-    <!-- Top Navbar -->
-    <header>
-        <div class="logo"><img src="{% static 'store/logo.jpg' %}" alt="Shopsy_logo"></div>
-        <form method="get" action="{% url 'search'%}">
-            <input type="text" name="q" placeholder="Search Products....">
-        </form>
-    </header>
-    <div class="layout">
-        <!-- main content area -->
-        <main class="main-content">
-            <div class="hero-banner">
-                <div class="slider">
-                    <div class="hero hero1">
-                        <h1>Welcome to Shopsy</h1>
-                        <p>Discover the latest trends and shop your favourites.</p>
-                        <button>Shop Now</button>
-                    </div>
-                    <div class="hero hero2">
-                        <h1>Big Summer Sale</h1>
-                        <p>Up to 50% Off on all fashion items</p>
-                        <button>Shop Now</button>
-                    </div>
-                    <div class="hero hero3">
-                        <h1>New Arrivals</h1>
-                        <p>Trendy fashion just for you</p>
-                        <button>Discover</button>
-                    </div>
-                    <div class="hero hero4">
-                        <h1>Latest Collections</h1>
-                        <p>We are here to match your asthetics</p>
-                        <button>Explore more</button>
-                    </div>
-                </div>
-            </div>
-
-        </main>
+{% extends 'base.html'%} {% load static %} {% block content %}
+<!-- Top Navbar -->
+<header>
+  <div class="logo">
+    <img src="{% static 'store/logo.jpg' %}" alt="Shopsy_logo" />
+  </div>
+  <form method="get" action="{% url 'search'%}">
+    <input type="text" name="q" placeholder="Search Products...." />
+  </form>
+</header>
+<div class="layout">
+  <!-- main content area -->
+  <main class="main-content">
+    <div class="hero-banner">
+      <div class="slider">
+        <div class="hero hero1">
+          <h1>Welcome to Shopsy</h1>
+          <p>Discover the latest trends and shop your favourites.</p>
+          <button>Shop Now</button>
+        </div>
+        <div class="hero hero2">
+          <h1>Big Summer Sale</h1>
+          <p>Up to 50% Off on all fashion items</p>
+          <button>Shop Now</button>
+        </div>
+        <div class="hero hero3">
+          <h1>New Arrivals</h1>
+          <p>Trendy fashion just for you</p>
+          <button>Discover</button>
+        </div>
+        <div class="hero hero4">
+          <h1>Latest Collections</h1>
+          <p>We are here to match your asthetics</p>
+          <button>Explore more</button>
+        </div>
+      </div>
     </div>
-    <!-- Category  Section -->
-    <section class="category">
-        <h1>Shop by Category</h1>
-        <div class="category-grid">
-            <div class="category-cart">
-                <img src="{% static 'store/women.jpg'%}">
-                <a href="{% url 'category' 'Women'%}"><h3>Women</h3></a>
-            </div>
-            <div class="category-cart">
-                <img src="{% static 'store/men_cart.jpg'%}">
-                <a href="{% url 'category' 'Men'%}"><h3>Men</h3></a>
-            </div>
-            <div class="category-cart">
-                <img src="{% static 'store/kids_cart.jpg'%}">
-                <a href="{% url 'category' 'Kids'%}"><h3>Kids</h3></a>
-            </div>
-            <div class="category-cart">
-                <img src="{% static 'store/footwear_cart.jpg'%}">
-                <a href="{% url 'category' 'Footwear'%}"><h3>Foot-wears</h3></a>
-            </div>
-            <div class="category-cart">
-                <img src="{% static 'store/aceessoris cart.jpg'%}">
-                <a href="{% url 'category' 'Acessories'%}"><h3>Accessories</h3></a>
-            </div>
-            <div class="category-cart">
-                <img src="{% static 'store/makeup_cart.jpg'%}">
-                <a href="{% url 'category' 'Makeup'%}"><h3>Make-up</h3></a>
-            </div>
-            <!-- <div class="category-cart">
+  </main>
+</div>
+<!-- Category  Section -->
+<section class="category">
+  <h1>Shop by Category</h1>
+  <div class="category-grid">
+    <div class="category-cart">
+      <img src="{% static 'store/download.jpg'%}" />
+      <a href="{% url 'category' 'Women'%}"><h3>Women</h3></a>
+    </div>
+    <div class="category-cart">
+      <img src="{% static 'store/men_cart.jpg'%}" />
+      <a href="{% url 'category' 'Men'%}"><h3>Men</h3></a>
+    </div>
+    <div class="category-cart">
+      <img src="{% static 'store/kids_cart.jpg'%}" />
+      <a href="{% url 'category' 'Kids'%}"><h3>Kids</h3></a>
+    </div>
+    <div class="category-cart">
+      <img src="{% static 'store/footwear_cart.jpg'%}" />
+      <a href="{% url 'category' 'Footwear'%}"><h3>Foot-wears</h3></a>
+    </div>
+    <div class="category-cart">
+      <img src="{% static 'store/aceessoris cart.jpg'%}" />
+      <a href="{% url 'category' 'Acessories'%}"><h3>Accessories</h3></a>
+    </div>
+    <div class="category-cart">
+      <img src="{% static 'store/makeup_cart.jpg'%}" />
+      <a href="{% url 'category' 'Makeup'%}"><h3>Make-up</h3></a>
+    </div>
+    <!-- <div class="category-cart">
                 <img src="{% static 'store/'%}">
                 <h3>Skincare</h3>
             </div> -->
+  </div>
+</section>
+<!-- Products -->
+<section class="products">
+  <h1>Some of Our Latest Products</h1>
 
-        </div>
-    </section>
-    <!-- Products -->
-    <section class="products">
-
-        <h1>Some of Our Latest Products</h1>
-        
-        <div class="product-grid">
-            {% for product in products %}
-            <div class="product-cart">
-                <img class="product-image" src="{{product.image.url}}">
-                <div class="product-details">
-                    <h5>{{product.name}}</h5>
-                    <p>{{product.price}}Rs.</p>
-                    <!-- <p>{{product.description}}</p> -->
-                    <button>Add to card</button>
-                    <a href="{% url 'product' product.id %}">View Product>></a>
-                </div>
-            </div>
-            {% endfor%}
-            
-        </div>
-        
-    
-    </section>
+  <div class="product-grid">
+    {% for product in products %}
+    <div class="product-cart">
+      <img class="product-image" src="{{product.image.url}}" />
+      <div class="product-details">
+        <h5>{{product.name}}</h5>
+        <p>{{product.price}}Rs.</p>
+        <!-- <p>{{product.description}}</p> -->
+        <button>Add to card</button>
+        <a href="{% url 'product' product.id %}">View Product>></a>
+      </div>
+    </div>
+    {% endfor%}
+  </div>
+</section>
 {% endblock %}
