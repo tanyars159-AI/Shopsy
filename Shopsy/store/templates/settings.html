@@ -3,34 +3,49 @@
   <h1>Account Settings</h1>
 
   <!-- Profile Info -->
-  <div class="settings-section">
-    <h2>User Details</h2>
-    <form method="post">
+   <div class="settings-section">
+    <h1>Update User</h1>
+    <form method="post" action="{% url 'update_user' %}">
       {% csrf_token %}
-      <label>Full Name</label>
-      <input type="text" name="name" value="{{ user.username }}" required />
+        <input type="text" name="username"  value="{{ user_form.username }}" placeholder="Enter Username" required />
+        <input type="text" name="first_name" value="{{ user_form.first_name }}" placeholder="Enter First Name" required />
+        <input type="text" name="last_name" value="{{ user_form.last_name }}"  placeholder="Enter Last Name" required />
+        <input type="email" name="email" value="{{ user_form.email }}" placeholder="Enter Email" required />
+    </form>
+   </div>
+  <div class="settings-section">
+    <h1>Update Information</h1>
+    <form  method="post" action="{% url 'update_info'%}">
+        {% csrf_token %}
+        <strong>User Information</strong>
+        <input type="text" name="username"  value="{{ form.username }}" placeholder="Enter Username" required />
+        <input type="text" name="first_name" value="{{ form.first_name }}" placeholder="Enter First Name" required />
+        <input type="text" name="last_name" value="{{ form.last_name }}"  placeholder="Enter Last Name" required />
+        <input type="email" name="email" value="{{ form.email }}" placeholder="Enter Email" required />
+        <strong>Shipping Information</strong>
+        <input type="text" name="Shipping_full_name" value="{{shipping_form.Shipping_full_name}}" placeholder="Full Name" required>
+        <input type="email" name="Shipping_email " value="{{shipping_form.Shipping_email}}" placeholder="Email" required>
+        <input type="text"  name="Shipping_address1 " value="{{shipping_form.Shipping_address1}}" placeholder="First Adresss" required>
+        <input type="text"  name="Shipping_address2 " value="{{shipping_form.Shipping_address2}}" placeholder="Other Address" required>
+        <input type="text"  name="Shipping_city" value="{{shipping_form.Shipping_city}}" placeholder="City" required>
+        <input type="text"  name="Shipping_state" value="{{shipping_form.Shipping_state}}" placeholder="State" >
+        <input type="number"name="Shipping_zipcode" value="{{shipping_form.Shipping_zipcode}}" placeholder="Zipcode">
+        <input type="text"  name="Shipping_country" value="{{shipping_form.Shipping_country}}" placeholder="CountRY" required>
 
-      <label>Email</label>
-      <input type="email" name="email" value="{{ user.email }}" required />
-
-      <label>Phone</label>
-      <input type="text" name="phone" placeholder="Enter phone number" />
-
-      <button type="submit">Update Profile</button>
+        <button type="submit">Update</button>      
     </form>
   </div>
 
   <!-- Change Password -->
   <div class="settings-section">
     <h2>Change Password</h2>
-    <form method="post" action="{% url 'change_password' %}">
+    <form method="post" action="{% url 'update_password' %}">
       {% csrf_token %}
       <label>Current Password</label>
-      <input type="password" name="old_password" required />
+      <input type="password" name="old_password" value="form.new_password1" required />
 
       <label>New Password</label>
-      <input type="password" name="new_password" required />
-
+      <input type="password" name="new_password" value="form.new_password2" required />
       <button type="submit">Change Password</button>
     </form>
   </div>

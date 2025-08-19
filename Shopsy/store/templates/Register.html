@@ -9,12 +9,16 @@
     <title>login form</title>
 </head>
 <body>
-    <h1>Register for User Account..</h1>
-    <form class="product-cart" method="post" action="{% url 'register'%}">
-        {% csrf_token %}
-        {{form}}
-        <input type="submit" value="Register">
-    </form>
+    <section class="settings-container">
+        <h1>Register for User Account..</h1>
+        <div class="settings-section">
+            <form  method="post" action="{% url 'register'%}">
+            {% csrf_token %}
+            {{form}}
+            <button type="submit" >Register</button>
+        </form>
+        </div>
+    </section>
 </body>
 </html>
 {% endblock %}
