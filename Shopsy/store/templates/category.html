@@ -1,28 +1,55 @@
-{% extends 'base.html'%}
-{% load static %}
-{% block content %}
-    
-    <!-- Products -->
-    <section class="products">
+{% extends 'base.html'%} {% load static %} {% block content %}
 
-        <h1>{{category}}</h1>
-        
-        <div class="product-grid">
-            {% for product in products %}
-            <div class="product-cart">
-                <img class="product-image" src="{{product.image.url}}">
-                <div class="product-details">
-                    <h5>{{product.name}}</h5>
-                    <p>{{product.price}}Rs.</p>
-                    <!-- <p>{{product.description}}</p> -->
-                    <button>Add to card</button>
-                    <a href="{% url 'product' product.id %}">View Product>></a>
-                </div>
-            </div>
-            {% endfor%}
-            
-        </div>
-        
-    
-    </section>
+<!-- Products -->
+<section class="products">
+  <h1>{{category}}</h1>
+
+  <div class="product-grid">
+    {% for product in products %}
+    <div class="product-cart">
+      <div><img class="product-image" src="{{product.image.url}}" /></div>
+      <div class="product-details">
+        <h5>{{product.name}}</h5>
+        <p>Rs.{{product.price}}</p>
+        <!-- <p>{{product.description}}</p> -->
+        <button type="button" data-index="{{product.id}}" class="add-cart">
+          Add to Cart
+        </button>
+        <a href="{% url 'product' product.id %}">View Product>></a>
+      </div>
+    </div>
+    {% endfor%}
+  </div>
+</section>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+      //check if button pressed
+      $(document).on("click", ".add-cart", function (e) {
+        e.preventDefault();
+        const productID = $(this).data("index");
+        // const qty = $(this).closest('.product-cart').find('.qty-cart').val(); // if quantity added
+        const qty = 1; // default quantity if not using selector
+        $.ajax({
+          type: "POST",
+          url: "{% url 'cart_add' %}",
+          data: {
+            product_id: productID,
+            product_qty: qty,
+            csrfmiddlewaretoken: "{{csrf_token}}",
+            action: "post",
+          },
+
+          success: function (json) {
+            //console.log(json);, update it live
+            document.getElementById("cart_quantity").textContent = json.qty;
+          },
+
+          error: function (xhr, errmsg, err) {
+            console.error("Error adding to cart:", errmsg);
+          },
+        });
+      });
+    </script>
 {% endblock %}
